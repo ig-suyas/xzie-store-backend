@@ -4,7 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.Value;
+import org.springframework.beans.factory.annotation.Value;
 import com.xzie.user_service.dao.UserRepo;
 import com.xzie.user_service.model.User;
 import com.xzie.user_service.service.JwtService;
@@ -46,10 +46,10 @@ public class GoogleAuthService {
             u.setEmail(email);
             u.setUsername(name);
             u.setRoles("USER");
-            u.setPassword(encoder.encode(UUID.randomUUID().toString())); // Google users have no password
+            u.setPassword(encoder.encode(UUID.randomUUID().toString()));
             return userRepo.save(u);
         });
 
-        return jwtService.generateToken(user.getUsername());       // CHANGE to your method name
+        return jwtService.generateToken(user.getUsername());
     }
 }
