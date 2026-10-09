@@ -20,12 +20,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	@Value("${app.cors.allowed-origins}")
+	private String allowedOrigins;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -45,7 +49,7 @@ public class SecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration c = new CorsConfiguration();
-		c.setAllowedOrigins(List.of("http://localhost:5173"));
+		c.setAllowedOrigins(List.of(allowedOrigins.split(",")));
 		c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		c.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 		UrlBasedCorsConfigurationSource s = new UrlBasedCorsConfigurationSource();
