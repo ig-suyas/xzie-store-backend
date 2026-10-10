@@ -66,7 +66,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(r -> r
 						.requestMatchers("/register", "/login", "/auth/google", "/error").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/products/*/image").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/products", "/api/products/*", "/api/products/*/image").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/products", "/api/products/*", "/api/products/*/image", "/ping").permitAll()
 						.anyRequest().authenticated())
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
